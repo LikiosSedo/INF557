@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Distance Vector Table</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  table {
+    width: 50%;
+    border-collapse: collapse;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  th, td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  tr:hover {background-color: #f5f5f5;}
+</style>
+</head>
+<body>
+<h2 style="text-align:center;">Distance Vector Table - Version 0</h2>
+<table>
+  <tr>
+    <th>D<sub>A</sub></th>
+    <th>Dest: B</th> 
+    <th>Dest: C</th>
+    <th>Dest: D</th>
+    <th>Dest: E</th>
+    <th>Dest: F</th>
+  </tr>
+  <tr>
+    <td>Via: B</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+  </tr>
+  <tr>
+    <td>Via: C</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+  </tr>
+  <tr>
+    <td>Via: E</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+  </tr>
+  <tr>
+    <td>Via: F</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+  </tr>
+</table>
+
+<h2 style="text-align:center;">Distance Vector Table - Version 1</h2>
+<table>
+  <tr>
+    <th>D<sub>A</sub></th>
+    <th>Dest: B</th>
+    <th>Dest: C</th>
+    <th>Dest: D</th>
+    <th>Dest: E</th>
+    <th>Dest: F</th>
+  </tr>
+  <tr>
+    <td>Via: B</td>
+    <td>21</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+  </tr>
+  <tr>
+    <td>Via: C</td>
+    <td>&infin;</td>
+    <td>7</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+  </tr>
+  <tr>
+    <td>Via: E</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+    <td>6</td>
+    <td>&infin;</td>
+  </tr>
+  <tr>
+    <td>Via: F</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+    <td>&infin;</td>
+    <td>5</td>
+  </tr>
+</table>
+
+
+
+<h2 style="text-align:center;">Distance Vector Table - Version 2</h2>
+<table>
+  <tr>
+    <th>D<sub>A</sub></th>
+    <th>Dest: B</th>
+    <th>Dest: C</th>
+    <th>Dest: D</th>
+    <th>Dest: E</th>
+    <th>Dest: F</th>
+  </tr>
+  <tr>
+    <td>Via: B</td>
+    <td>21</td> <!-- Direct cost to B -->
+    <td>37</td> <!-- B reported 16 to C, plus cost from A to B is 21, so 16+21 -->
+    <td>29</td> <!-- B reported 8 to D, plus cost from A to B is 21, so 8+21 -->
+    <td>&infin;</td>
+    <td>25</td> <!-- B reported 4 to F, plus cost from A to B is 21, so 4+21 -->
+  </tr>
+  <tr>
+    <td>Via: C</td>
+    <td>23</td> <!-- C reported 16 to B, plus cost from A to C is 7, so 16+7 -->
+    <td>7</td>  <!-- Direct cost to C -->
+    <td>10</td> <!-- C reported 3 to D, plus cost from A to C is 7, so 3+7 -->
+    <td>19</td> <!-- C reported 12 to E, plus cost from A to C is 7, so 12+7 -->
+    <td>&infin;</td>
+  </tr>
+  <tr>
+    <td>Via: E</td>
+    <td>&infin;</td>
+    <td>18</td> <!-- E reported 12 to C, plus cost from A to E is 6, so 12+6 -->
+    <td>15</td> <!-- E reported 9 to D, plus cost from A to E is 6, so 9+6 -->
+    <td>6</td>  <!-- Direct cost to E -->
+    <td>8</td>  <!-- E reported 2 to F, plus cost from A to E is 6, so 2+6 -->
+  </tr>
+  <tr>
+    <td>Via: F</td>
+    <td>9</td>  <!-- F reported 4 to B, plus cost from A to F is 5, so 4+5 -->
+    <td>&infin;</td>
+    <td>19</td> <!-- F reported 14 to D, plus cost from A to F is 5, so 14+5 -->
+    <td>7</td>  <!-- F reported 2 to E, plus cost from A to F is 5, so 2+5 -->
+    <td>5</td>  <!-- Direct cost to F -->
+  </tr>
+</table>
+
+<h2>The router A receives the following DV messages</h2>
+<div class="dv-messages">
+  <p><strong>From B, containing: </strong> (C, 16), (D, 8), (F, 4)</p>
+  <p><strong>From C, containing: </strong> (D, 3), (E, 12), (B, 16)</p>
+  <p><strong>From D, containing: </strong> (E, 9), (C, 3)</p>
+  <p><strong>From E, containing: </strong> (F, 2), (C, 12), (D, 9)</p>
+  <p><strong>From F, containing: </strong> (E, 2), (B, 4)</p>
+</div>
+
+<h2 style="text-align:center;">Distance Vector Table - Version 3</h2>
+<table>
+  <tr>
+    <th>D<sub>A</sub></th>
+    <th>Dest: B</th>
+    <th>Dest: C</th>
+    <th>Dest: D</th>
+    <th>Dest: E</th>
+    <th>Dest: F</th>
+  </tr>
+  <tr>
+    <td>Via: B</td>
+    <td>21</td> <!-- Direct cost to B -->
+    <td>32</td> <!-- B reported 11（8+3） to C, plus cost from A to B is 21, so 11+21 -->
+    <td>29</td> <!-- B reported 8 to D, plus cost from A to B is 21, so 8+21 -->
+    <td>27</td> <!-- B reported 6 to E, plus cost from A to B is 21, so 6+21 -->
+    <td>25</td> <!-- B reported 4 to F, plus cost from A to B is 21, so 4+21 -->
+  </tr>
+  <tr>
+    <td>Via: C</td>
+    <td>18</td> <!-- C reported 11（3+8） to B, plus cost from A to C is 7, so 11+7 -->
+    <td>7</td>  <!-- Direct cost to C -->
+    <td>10</td> <!-- C reported 3 to D, plus cost from A to C is 7, so 3+7 -->
+    <td>19</td> <!-- C reported 12 to E, plus cost from A to C is 7, so 12+7 -->
+    <td>19</td> <!-- C reported 12（7+5） to F, plus cost from A to C is 7, so 12+7 -->
+  </tr>
+  <tr>
+    <td>Via: E</td>
+    <td>12</td> <!-- E reported 6 to B, plus cost from A to E is 6, so 6+6 -->
+    <td>18</td> <!-- E reported 12 to C, plus cost from A to E is 6, so 12+6 -->
+    <td>15</td> <!-- E reported 9 to D, plus cost from A to E is 6, so 9+6 -->
+    <td>6</td>  <!-- Direct cost to E -->
+    <td>8</td>  <!-- E reported 2 to F, plus cost from A to E is 6, so 2+6 -->
+  </tr>
+  <tr>
+    <td>Via: F</td>
+    <td>9</td>  <!-- F reported 4 to B, plus cost from A to F is 5, so 4+5 -->
+    <td>19</td> <!-- F reported 14（2+12） to C, plus cost from A to F is 5, so 14+5 -->
+    <td>16</td> <!-- F reported 11（2+9） to D, plus cost from A to F is 5, so 11+5 -->
+    <td>7</td>  <!-- F reported 2 to E, plus cost from A to F is 5, so 2+5 -->
+    <td>5</td>  <!-- Direct cost to F -->
+  </tr>
+</table>
+
+</body>
+</html>
